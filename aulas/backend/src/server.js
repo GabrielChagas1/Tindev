@@ -4,7 +4,7 @@ const cors = require('cors'); //importando o cors
 const routes = require('./routes'); //importando o routes
 const server = express(); //instanciando o express
 
-mongoose.connect('mongodb+srv://user:senha@rocketseat-yvk93.mongodb.net/omnistack8?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://omnistack:omnistack@rocketseat-yvk93.mongodb.net/omnistack8?retryWrites=true&w=majority', {
     useNewUrlParser: true
 });//conectando no banco de dados mongoDB
 
