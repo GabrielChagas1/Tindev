@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {KeyboardAvoidingView, StyleSheet, Image, TextInput, TouchableOpacity, Text, Platform} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
 import logo from '../assets/logo.png';
 
 import api from '../services/api';
@@ -8,12 +9,19 @@ import api from '../services/api';
 function Login({navigation}){
     const [user, setUser] = useState('');
 
+    useEffect(() => {
+        AsyncStorage.getItem('user').then(user => {
+            if(user){
+                navigation.navigate('Main', {user})
+            }
+        })
+    }, []);
 
     async function handleLogin(){
         const response = await api.post('/devs', {username: user});
         const {_id} = response.data;
-        console.log(_id);
-        navigation.navigate('Main', {_id});
+        await AsyncStorage.setItem('user', _id);
+        navigation.navigate('Main', {user: _id});
     }
 
     return(
