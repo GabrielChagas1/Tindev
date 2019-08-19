@@ -1,34 +1,15 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
 
-import React from 'react';
-import {Text, View, StyleSheet } from 'react-native';
+import React, {Fragment} from 'react';
+import { View, Text, StyleSheet} from 'react-native';
+import Routes from './routes';
+
+//View equivale a div do HTML
 
 function App(){
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello World</Text>
-    </View>
+  return(
+    <Routes />
+
   );
-}
-
-const styles = StyleSheet.create({
-  container:{
-     flex: 1,
-     backgroundColor: '#7159c1',
-     justifyContent: 'center',
-     alignItems: 'center'
-  },
-  text:{
-    color: '#fff',
-    fontSize: 50, 
-
-  }
-});
+};
 
 export default App;
