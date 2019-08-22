@@ -2,7 +2,8 @@ const Dev = require('../models/Dev');//importando o model de devs
 
 module.exports = {
     async store(req, res){//store equivale a criar um novo like no banco de dados
-
+        console.log(req.io, req.connectedUsers);
+        
         const { user } = req.headers; 
         const { devId } = req.params;
 
@@ -14,9 +15,16 @@ module.exports = {
         }
 
         if(targetDev.likes.includes(loggedDev._id)){
-            console.log('DEU MATCH');
+            const loggedSocket = req.connectedUsers[user];//socket do usuário logado
+            const targetSocket = req.connectedUsers[devId];//socket de quem recebeu o match
+
+            if(loggedSocket){
+                req.io.to(loggedSocket).emit('match', targetDev);
+            }
+            if(targetSocket){
+                req.io.to(targetSocket).emit('match', loggedDev);
+            }
         }
-        
         loggedDev.likes.push(targetDev._id);
         await loggedDev.save();
 
